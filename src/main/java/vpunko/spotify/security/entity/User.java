@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 /**
  * Entity for a user authentication
  */
-@Entity
-@Table(name = "user")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Entity
+@Table(name = "user", schema = "spotify_auth")
 public class User {
 
     @Id

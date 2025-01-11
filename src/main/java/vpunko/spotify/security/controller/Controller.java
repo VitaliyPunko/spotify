@@ -1,12 +1,13 @@
 package vpunko.spotify.security.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class Controller {
 
-    @GetMapping("/hello")
+    @PostMapping("/hello")//to proceed successForwardUrl
     public String hello() {
         return "Hello world";
     }
