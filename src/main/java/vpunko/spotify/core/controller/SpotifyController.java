@@ -1,8 +1,8 @@
-package vpunko.spotify.controller;
+package vpunko.spotify.core.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vpunko.spotify.client.SpotifyClient;
+import vpunko.spotify.core.client.SpotifyClient;
 import vpunko.spotify.core.dto.ArtistDto;
 
 @RestController

@@ -1,7 +1,7 @@
 spotify:
   auth:
     credentials:
-      clientId: ea61a2d5de634fcd89a2e3e615321a75
+      clientId: ea61a2d5de634fcd89a2e3e615321a75  #todo: use vault
       clientSecret: 0cfec47751044f1b8af74a3a15698a8e
 
 spring:
@@ -18,6 +18,13 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         show_sql: true
+
+org:
+  jobrunr:
+    background-job-server:
+      enabled: true
+    dashboard:
+      enabled: true
 
 logging:
   level:

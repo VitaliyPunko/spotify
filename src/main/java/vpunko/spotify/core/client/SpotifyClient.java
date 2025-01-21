@@ -1,4 +1,4 @@
-package vpunko.spotify.client;
+package vpunko.spotify.core.client;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
