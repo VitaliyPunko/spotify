@@ -19,18 +19,40 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf((csrf) -> csrf. disable())
+                .csrf((csrf) -> csrf.disable())
+                .cors((cors) -> cors.disable())
                 .authorizeHttpRequests((requests) -> requests
 //                        .requestMatchers("/home", "/testPostArticle").permitAll()
-//                        .anyRequest().authenticated()
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
+//                                .anyRequest().permitAll()
                 )
                 .formLogin((formLogin) ->
-                formLogin
-                        .successForwardUrl("/hello")
-        );
-        return http. build();
+                        formLogin
+                                .successForwardUrl("/hello")
+                )
+                .oauth2Login(withDefaults());
+        return http.build();
     }
+
+//    @Bean
+//    public OAuth2AuthorizedClientManager authorizedClientManager(
+//            ClientRegistrationRepository clientRegistrationRepository,
+//            OAuth2AuthorizedClientRepository authorizedClientRepository) {
+//
+//        OAuth2AuthorizedClientProvider authorizedClientProvider =
+//                OAuth2AuthorizedClientProviderBuilder.builder()
+//                        .authorizationCode()
+//                        .refreshToken()
+//                        .clientCredentials()
+//                        .build();
+//
+//        DefaultOAuth2AuthorizedClientManager authorizedClientManager =
+//                new DefaultOAuth2AuthorizedClientManager(
+//                        clientRegistrationRepository, authorizedClientRepository);
+//        authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
+//
+//        return authorizedClientManager;
+//    }
 
     @Bean
     PasswordEncoder passwordEncoder() {
