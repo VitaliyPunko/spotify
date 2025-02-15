@@ -1,9 +1,3 @@
-spotify:
-  auth:
-    credentials:
-      clientId: ea61a2d5de634fcd89a2e3e615321a75  #todo: use vault
-      clientSecret: 0cfec47751044f1b8af74a3a15698a8e
-
 spring:
   application:
     name: spotify
@@ -15,9 +9,8 @@ spring:
             client-id: ea61a2d5de634fcd89a2e3e615321a75
             client-secret: 0cfec47751044f1b8af74a3a15698a8e
             authorization-grant-type: authorization_code
-      #      redirect-uri: "http://localhost:8080/callback"
             redirect-uri: http://localhost:8080/login/oauth2/code/spotify
-            scope: user-read-private, user-read-email
+            scope: user-read-private, user-read-email, user-top-read
         provider:
           spotify:
             authorization-uri: https://accounts.spotify.com/authorize
