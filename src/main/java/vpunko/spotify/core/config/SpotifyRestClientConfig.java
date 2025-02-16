@@ -1,5 +1,7 @@
 package vpunko.spotify.core.config;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -16,7 +18,11 @@ import org.springframework.web.client.RestClient;
 import java.util.Collections;
 
 @Configuration
+@RequiredArgsConstructor
 public class SpotifyRestClientConfig {
+
+    @Value("${application.urls.spotify}")
+    private String SPOTIFY_BASE_URL;
 
     @Bean
     public RestClient restClient(RestClient.Builder builder, OAuth2AuthorizedClientManager authorizedClientManager) {
@@ -26,7 +32,7 @@ public class SpotifyRestClientConfig {
         return builder
                 .requestInterceptor(requestInterceptor)
                 .messageConverters(ms -> ms.add(getMappingJackson2HttpMessageConverter()))
-                .baseUrl("https://api.spotify.com/v1")
+                .baseUrl(SPOTIFY_BASE_URL)
                 .build();
     }
 

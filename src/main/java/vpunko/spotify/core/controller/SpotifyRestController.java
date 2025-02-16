@@ -4,15 +4,15 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vpunko.spotify.core.client.SpotifyClientEx;
-import vpunko.spotify.core.dto.SpotifyTracksAnswerDto;
+import vpunko.spotify.core.client.SpotifyRestClient;
+import vpunko.spotify.core.dto.SpotifyUserTopAnswerDto;
 
 @RestController
 public class SpotifyRestController {
 
-    private final SpotifyClientEx spotifyClient;
+    private final SpotifyRestClient spotifyClient;
 
-    public SpotifyRestController(SpotifyClientEx spotifyClient) {
+    public SpotifyRestController(SpotifyRestClient spotifyClient) {
         this.spotifyClient = spotifyClient;
     }
 
@@ -28,10 +28,13 @@ public class SpotifyRestController {
     }
 
     @GetMapping("/userTopTracks")
-    public SpotifyTracksAnswerDto getserTopTracks() {
-        // Получаем данные пользователя
+    public SpotifyUserTopAnswerDto getserTopTracks() {
         return spotifyClient.getUserTopTracks();
+    }
 
+    @GetMapping("/userTopArtists")
+    public SpotifyUserTopAnswerDto getUserTopArtists() {
+        return spotifyClient.getUserTopArtists();
     }
 
 

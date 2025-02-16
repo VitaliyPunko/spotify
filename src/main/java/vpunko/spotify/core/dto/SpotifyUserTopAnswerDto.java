@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Data
-public class SpotifyTracksAnswerDto {
+public class SpotifyUserTopAnswerDto {
 
     private String href;
     private int limit;

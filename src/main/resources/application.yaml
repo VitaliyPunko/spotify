@@ -39,3 +39,7 @@ org:
 logging:
   level:
     org.springframework.security: TRACE
+
+application:
+  urls:
+    spotify: https://api.spotify.com/v1
