@@ -1,5 +1,6 @@
 package vpunko.spotify.core.client;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import vpunko.spotify.core.dto.SpotifyUser;
@@ -17,9 +18,12 @@ public class SpotifyRestClient {
     private static final String USER_TOP_ARTISTS_URI = "/me/top/artists";
 
     public SpotifyRestClient(
-            RestClient restClient
+            RestClient.Builder restClient,
+            @Value("${application.urls.spotify}") String spotifyBaseUrl
     ) {
-        this.restClient = restClient;
+        this.restClient = restClient
+                .baseUrl(spotifyBaseUrl)
+                .build();
     }
 
     public SpotifyUserTopAnswerDto getUserTopTracks() {
