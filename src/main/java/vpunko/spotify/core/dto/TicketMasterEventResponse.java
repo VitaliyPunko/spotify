@@ -8,7 +8,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class EventResponse {
+public class TicketMasterEventResponse {
 
     private Embedded _embedded;
     private Links _links;

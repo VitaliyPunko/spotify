@@ -3,9 +3,12 @@ package vpunko.spotify.core.controller;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import vpunko.spotify.core.client.SpotifyRestClient;
 import vpunko.spotify.core.dto.SpotifyUserTopAnswerDto;
+
+import java.util.Optional;
 
 @RestController
 public class SpotifyRestController {
@@ -33,8 +36,8 @@ public class SpotifyRestController {
     }
 
     @GetMapping("/userTopArtists")
-    public SpotifyUserTopAnswerDto getUserTopArtists() {
-        return spotifyClient.getUserTopArtists();
+    public SpotifyUserTopAnswerDto getUserTopArtists(@RequestParam String limit) {
+        return spotifyClient.getUserTopArtists(Optional.ofNullable(limit));
     }
 
 

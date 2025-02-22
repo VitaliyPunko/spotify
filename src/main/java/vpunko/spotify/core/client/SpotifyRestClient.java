@@ -1,10 +1,14 @@
 package vpunko.spotify.core.client;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import vpunko.spotify.core.dto.SpotifyUser;
 import vpunko.spotify.core.dto.SpotifyUserTopAnswerDto;
+import vpunko.spotify.core.exception.SpotifyRestClientException;
+
+import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.security.oauth2.client.web.client.RequestAttributeClientRegistrationIdResolver.clientRegistrationId;
@@ -37,12 +41,18 @@ public class SpotifyRestClient {
         return body;
     }
 
-    public SpotifyUserTopAnswerDto getUserTopArtists() {
+    //add limit?
+    public SpotifyUserTopAnswerDto getUserTopArtists(Optional<String> limit) {
         SpotifyUserTopAnswerDto body = restClient.get()
-                .uri(USER_TOP_ARTISTS_URI)
+                .uri(uriBuilder -> uriBuilder.path(USER_TOP_ARTISTS_URI)
+                        .queryParamIfPresent("limit", limit).build()
+                )
                 .accept(APPLICATION_JSON)
                 .attributes(clientRegistrationId("spotify"))
                 .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
+                    throw new SpotifyRestClientException(response.getStatusCode(), response.getHeaders());
+                })
                 .body(SpotifyUserTopAnswerDto.class);
         return body;
     }
