@@ -1,0 +1,32 @@
+package vpunko.spotify.bot;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static vpunko.spotify.bot.BotUserState.DEFAULT;
+
+public class UserStateManager {
+    private Map<Long, BotUserState> userStates = new HashMap<>();
+    private Map<Long, String> userLogins = new HashMap<>();
+
+    public void setUserState(long chatId, BotUserState state) {
+        userStates.put(chatId, state);
+    }
+
+    public BotUserState getUserState(long chatId) {
+        return userStates.getOrDefault(chatId, DEFAULT);
+    }
+
+    public void setUserLogin(long chatId, String login) {
+        userLogins.put(chatId, login);
+    }
+
+    public String getUserLogin(long chatId) {
+        return userLogins.get(chatId);
+    }
+
+    public void clearUserState(long chatId) {
+        userStates.remove(chatId);
+        userLogins.remove(chatId);
+    }
+}

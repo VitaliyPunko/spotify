@@ -30,6 +30,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
+    implementation 'org.telegram:telegrambots-spring-boot-starter:6.9.7.1'
+
+
     implementation group: 'org.json', name: 'json', version: '20250107'
     implementation group: 'org.jobrunr', name: 'jobrunr-spring-boot-3-starter', version: '7.0.0'
 
