@@ -47,3 +47,7 @@ application:
   credentials:
     ticketmaster:
       apikey: GdnEbnSIzFA31WRk3pvBSC2DhGMCHgHS    #use vault
+
+telegram:
+  bot_username: MusicEvenHelperBot    #use vault
+  bot_token: 7941376949:AAHeus8Bg2E0aydGgWJEvtdOE1S3col-H1M   #use vault

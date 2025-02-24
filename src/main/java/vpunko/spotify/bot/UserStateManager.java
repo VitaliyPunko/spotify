@@ -1,11 +1,15 @@
 package vpunko.spotify.bot;
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import static vpunko.spotify.bot.BotUserState.DEFAULT;
 
+@Component
 public class UserStateManager {
+
     private Map<Long, BotUserState> userStates = new HashMap<>();
     private Map<Long, String> userLogins = new HashMap<>();
 
