@@ -1,0 +1,20 @@
+{
+  "name" : "Rammstein Tribute",
+  "startTime" : "2025-04-13T00:00:00Z",
+  "timeZone" : "America/Chicago",
+  "price" : 15.0,
+  "currency" : "USD",
+  "ticketSaleStatus" : "ON_SALE",
+  "venuesUrl" : null,
+  "saleStartDateTime" : "2025-01-22T00:35:00Z",
+  "saleEndDateTime" : "2025-04-13T00:00:00Z",
+  "description" : "This event is 21 and over. Any ticket holder unable to present valid identification indicating that they are at least 21 years of age will not be admitted to this event, and will not be eligible for a refund.",
+  "imageUrl" : "https://s1.ticketm.net/dam/c/797/5e693c26-2881-4776-8f0c-3aa94bfa3797_106511_ARTIST_PAGE_3_2.jpg",
+  "venue" : {
+    "name" : "The Marquee",
+    "country" : "United States Of America",
+    "city" : "Sioux City",
+    "address" : "1225 4th Street",
+    "url" : "https://www.ticketweb.com/venue/the-marquee-sioux-city-ia/495835"
+  }
+}

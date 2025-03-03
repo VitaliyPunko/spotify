@@ -1,0 +1,14 @@
+{
+  "name" : "Rammstein Tribute",
+  "startTime" : null,
+  "timeZone" : null,
+  "price" : null,
+  "currency" : null,
+  "ticketSaleStatus" : null,
+  "venuesUrl" : null,
+  "saleStartDateTime" : "2025-01-22T00:35:00Z",
+  "saleEndDateTime" : "2025-04-13T00:00:00Z",
+  "imageUrl" : null,
+  "description" : "This event is 21 and over. Any ticket holder unable to present valid identification indicating that they are at least 21 years of age will not be admitted to this event, and will not be eligible for a refund.",
+  "venue" : null
+}

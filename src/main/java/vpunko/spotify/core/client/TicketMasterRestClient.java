@@ -8,7 +8,6 @@ import org.springframework.web.client.RestClient;
 import vpunko.spotify.core.dto.TicketMasterEventResponse;
 import vpunko.spotify.core.exception.TicketMasterClientException;
 
-import java.time.OffsetDateTime;
 import java.util.Optional;
 
 /**
@@ -29,17 +28,20 @@ public class TicketMasterRestClient {
         this.restClient = restClient.baseUrl(baseUrl).build();
     }
 
-    public TicketMasterEventResponse getEvent(String keyWord, OffsetDateTime startDate) {
+    public TicketMasterEventResponse getEvent(String keyWord, String startDate) {
         TicketMasterEventResponse body = restClient.get()
                 .uri(uriBuilder -> uriBuilder.path("/events")
-                        .queryParam("apikey", apiKey)
                         .queryParam("keyword", keyWord)
+                        .queryParam("apikey", apiKey)
                         .queryParamIfPresent("startDateTime", Optional.ofNullable(startDate))
                         .build()
-                        )
+                )
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
-                    throw new TicketMasterClientException(response.getStatusCode(), response.getHeaders());
+                    throw new TicketMasterClientException(
+                            response.getStatusCode(),
+                            response.getHeaders(),
+                            response.getBody().toString());
                 })
                 .body(TicketMasterEventResponse.class);
 
@@ -49,4 +51,5 @@ public class TicketMasterRestClient {
 
         return body;
     }
+
 }

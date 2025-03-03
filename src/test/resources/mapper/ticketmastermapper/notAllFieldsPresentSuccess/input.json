@@ -1,0 +1,56 @@
+{
+  "_embedded": {
+    "events": [
+      {
+        "name": "Rammstein Tribute",
+        "type": "event",
+        "id": "rZ7HnEZ1AfFovN",
+        "test": false,
+        "url": "https://www.ticketweb.com/event/rammstein-tribute-the-marquee-tickets/14211063",
+        "locale": "en-us",
+        "sales": {
+          "public": {
+            "startDateTime": "2025-01-22T00:35:00Z",
+            "startTBD": false,
+            "startTBA": false,
+            "endDateTime": "2025-04-13T00:00:00Z"
+          }
+        },
+        "promoter": {
+          "id": "5783",
+          "name": "NICE ENOUGH ENT",
+          "description": "NICE ENOUGH ENT / REG / SIOUX FALLS"
+        },
+        "promoters": [
+          {
+            "id": "5783",
+            "name": "NICE ENOUGH ENT",
+            "description": "NICE ENOUGH ENT / REG / SIOUX FALLS"
+          }
+        ],
+        "info": "Rammstein Tribute",
+        "pleaseNote": "This event is 21 and over. Any ticket holder unable to present valid identification indicating that they are at least 21 years of age will not be admitted to this event, and will not be eligible for a refund."
+      }
+    ]
+  },
+  "_links": {
+    "first": {
+      "href": "/discovery/v2/events?keyword=Rammstein&page=0&size=1"
+    },
+    "self": {
+      "href": "/discovery/v2/events?size=1&keyword=Rammstein"
+    },
+    "next": {
+      "href": "/discovery/v2/events?keyword=Rammstein&page=1&size=1"
+    },
+    "last": {
+      "href": "/discovery/v2/events?keyword=Rammstein&page=3&size=1"
+    }
+  },
+  "page": {
+    "size": 1,
+    "totalElements": 4,
+    "totalPages": 4,
+    "number": 0
+  }
+}

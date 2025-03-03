@@ -1,27 +1,27 @@
 package vpunko.spotify.core.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 import java.util.Map;
 
-@Getter
-@Setter
+@Data
 public class TicketMasterEventResponse {
 
     private Embedded _embedded;
     private Links _links;
     private Page page;
 
-    @Getter
-    @Setter
+    @Data
     public static class Embedded {
         private List<Event> events;
     }
 
-    @Getter
-    @Setter
+    @Data
     public static class Event {
         private String name;
         private String type;
@@ -33,15 +33,18 @@ public class TicketMasterEventResponse {
         private Sales sales;
         private Dates dates;
         private List<Classification> classifications;
-        private Promoter promoter;
-        private List<Promoter> promoters;
+        @JsonIgnore
+        private Object promoter;
+        @JsonIgnore
+        private List<Object> promoters;
         private List<PriceRange> priceRanges;
         private Ticketing ticketing;
+        private String info;
+        private String pleaseNote;
         private Links _links;
         private EmbeddedVenuesAttractions _embedded;
 
-        @Getter
-        @Setter
+        @Data
         public static class Image {
             private String ratio;
             private String url;
@@ -50,14 +53,13 @@ public class TicketMasterEventResponse {
             private boolean fallback;
         }
 
-        @Getter
-        @Setter
+        @Data
         public static class Sales {
-            private Public publicSale;
+            @JsonProperty("public") // Map JSON field "public" to this Java field
+            private PublicSale publicSale;
 
-            @Getter
-            @Setter
-            public static class Public {
+            @Data
+            public static class PublicSale {
                 private String startDateTime;
                 private boolean startTBD;
                 private boolean startTBA;
@@ -65,16 +67,18 @@ public class TicketMasterEventResponse {
             }
         }
 
-        @Getter
-        @Setter
+        @Data
         public static class Dates {
+            @JsonIgnore
+            private Object access;
+            @JsonIgnore
+            private Object end;
             private Start start;
             private String timezone;
             private Status status;
             private boolean spanMultipleDays;
 
-            @Getter
-            @Setter
+            @Data
             public static class Start {
                 private String localDate;
                 private String localTime;
@@ -85,31 +89,31 @@ public class TicketMasterEventResponse {
                 private boolean noSpecificTime;
             }
 
-            @Getter
-            @Setter
+            @Data
             public static class Status {
                 private String code;
             }
         }
 
-        @Getter
-        @Setter
+        @Data
         public static class Classification {
             private boolean primary;
             private Segment segment;
             private Genre genre;
             private SubGenre subGenre;
             private boolean family;
+            @JsonIgnore
+            private Object type;
+            @JsonIgnore
+            private Object subType;
 
-            @Getter
-            @Setter
+            @Data
             public static class Segment {
                 private String id;
                 private String name;
             }
 
-            @Getter
-            @Setter
+            @Data
             public static class Genre {
                 private String id;
                 private String name;
@@ -123,15 +127,7 @@ public class TicketMasterEventResponse {
             }
         }
 
-        @Getter
-        @Setter
-        public static class Promoter {
-            private String id;
-            private String name;
-        }
-
-        @Getter
-        @Setter
+        @Data
         public static class PriceRange {
             private String type;
             private String currency;
@@ -139,53 +135,45 @@ public class TicketMasterEventResponse {
             private double max;
         }
 
-        @Getter
-        @Setter
+        @Data
         public static class Ticketing {
             private SafeTix safeTix;
             private String id;
 
-            @Getter
-            @Setter
+            @Data
             public static class SafeTix {
                 private boolean enabled;
             }
         }
 
-        @Getter
-        @Setter
+        @Data
         public static class Links {
             private Self self;
             private List<AttractionLink> attractions;
             private List<VenueLink> venues;
 
-            @Getter
-            @Setter
+            @Data
             public static class Self {
                 private String href;
             }
 
-            @Getter
-            @Setter
+            @Data
             public static class AttractionLink {
                 private String href;
             }
 
-            @Getter
-            @Setter
+            @Data
             public static class VenueLink {
                 private String href;
             }
         }
 
-        @Getter
-        @Setter
+        @Data
         public static class EmbeddedVenuesAttractions {
             private List<Venue> venues;
             private List<Attraction> attractions;
 
-            @Getter
-            @Setter
+            @Data
             public static class Venue {
                 private String name;
                 private String type;
@@ -193,6 +181,7 @@ public class TicketMasterEventResponse {
                 private boolean test;
                 private String url;
                 private String locale;
+                @JsonIgnore
                 private List<Image> images;
                 private String postalCode;
                 private String timezone;
@@ -200,38 +189,36 @@ public class TicketMasterEventResponse {
                 private Country country;
                 private Address address;
                 private Location location;
+                @JsonIgnore
                 private UpcomingEvents upcomingEvents;
                 private Links _links;
+                @JsonIgnore
+                private Object state;
 
-                @Getter
-                @Setter
+                @Data
                 public static class City {
                     private String name;
                 }
 
-                @Getter
-                @Setter
+                @Data
                 public static class Country {
                     private String name;
                     private String countryCode;
                 }
 
-                @Getter
-                @Setter
+                @Data
                 public static class Address {
                     private String line1;
                 }
 
-                @Getter
-                @Setter
+                @Data
                 public static class Location {
                     private String longitude;
                     private String latitude;
                 }
             }
 
-            @Getter
-            @Setter
+            @Data
             public static class Attraction {
                 private String name;
                 private String type;
@@ -245,8 +232,7 @@ public class TicketMasterEventResponse {
                 private UpcomingEvents upcomingEvents;
                 private Links _links;
 
-                @Getter
-                @Setter
+                @Data
                 public static class ExternalLink {
                     private String url;
                 }
@@ -254,33 +240,27 @@ public class TicketMasterEventResponse {
         }
     }
 
-    @Getter
-    @Setter
+    @Data
     public static class UpcomingEvents {
         private int mfxNl;
         private int _total;
         private int _filtered;
-
-        // Lombok will generate getters and setters for all fields
     }
 
-    @Getter
-    @Setter
+    @Data
     public static class Links {
         private Link first;
         private Link self;
         private Link next;
         private Link last;
 
-        @Getter
-        @Setter
+        @Data
         public static class Link {
             private String href;
         }
     }
 
-    @Getter
-    @Setter
+    @Data
     public static class Page {
         private int size;
         private int totalElements;
