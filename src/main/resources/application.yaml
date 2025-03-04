@@ -17,6 +17,9 @@ spring:
             token-uri: https://accounts.spotify.com/api/token
             user-info-uri: https://api.spotify.com/v1/me   #Spotify has custom UserInfo endpoint
             user-name-attribute: id
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
 
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -51,3 +54,4 @@ application:
 telegram:
   bot_username: MusicEvenHelperBot    #use vault
   bot_token: 7941376949:AAHeus8Bg2E0aydGgWJEvtdOE1S3col-H1M   #use vault
+  ticketmaster_page_size: 3

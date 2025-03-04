@@ -13,6 +13,8 @@ public class SpotifyRestClientException extends RuntimeException {
     }
 
     public SpotifyRestClientException(HttpStatusCode statusCode, HttpHeaders headers) {
+        super(String.format("Spotify API request failed with status code: %s, headers: %s",
+                statusCode, headers));
         this.statusCode = statusCode;
         this.headers = headers;
     }

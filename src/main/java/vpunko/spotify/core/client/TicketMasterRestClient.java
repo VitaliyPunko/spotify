@@ -17,14 +17,18 @@ import java.util.Optional;
 public class TicketMasterRestClient {
 
     private final String apiKey;
+    private final Integer pageSize;
     private final RestClient restClient;
 
     public TicketMasterRestClient(RestClient.Builder restClient,
                                   @Value("${application.credentials.ticketmaster.apikey}")
                                   String apiKey,
                                   @Value("${application.urls.ticketmaster}")
-                                  String baseUrl) {
+                                  String baseUrl,
+                                  @Value("${telegram.ticketmaster_page_size}")
+                                  Integer pageSize) {
         this.apiKey = apiKey;
+        this.pageSize = pageSize;
         this.restClient = restClient.baseUrl(baseUrl).build();
     }
 
@@ -32,6 +36,7 @@ public class TicketMasterRestClient {
         TicketMasterEventResponse body = restClient.get()
                 .uri(uriBuilder -> uriBuilder.path("/events")
                         .queryParam("keyword", keyWord)
+                        .queryParam("size", pageSize)
                         .queryParam("apikey", apiKey)
                         .queryParamIfPresent("startDateTime", Optional.ofNullable(startDate))
                         .build()
