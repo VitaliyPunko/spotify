@@ -33,6 +33,9 @@ public class MusicEventServiceImpl {
         String offsetDateTimeRequiredFormat = OffsetDateTime.now().withOffsetSameInstant(ZoneOffset.UTC).format(formatter);
 
         TicketMasterEventResponse response = ticketMasterRestClient.getEvent(artist, offsetDateTimeRequiredFormat);
+        if (response == null || response.get_embedded() == null) {
+            return List.of();
+        }
         return mapper.map(response);
     }
 

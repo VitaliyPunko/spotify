@@ -16,7 +16,7 @@ import org.springframework.web.client.RestClient;
 import java.util.Collections;
 
 @Configuration
-public class SpotifyRestClientConfig {
+public class RestClientConfig {
 
     @Bean
     public RestClient.Builder restClient(OAuth2AuthorizedClientManager authorizedClientManager) {
