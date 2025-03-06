@@ -1,0 +1,180 @@
+{
+  "_embedded": {
+    "events": [
+      {
+        "name": "Rammstein Tribute",
+        "type": "event",
+        "id": "rZ7HnEZ1AfFovN",
+        "test": false,
+        "url": "https://www.ticketweb.com/event/rammstein-tribute-the-marquee-tickets/14211063",
+        "locale": "en-us",
+        "images": [
+          {
+            "ratio": "16_9",
+            "url": "https://s1.ticketm.net/dam/c/797/5e693c26-2881-4776-8f0c-3aa94bfa3797_106511_EVENT_DETAIL_PAGE_16_9.jpg",
+            "width": 205,
+            "height": 115,
+            "fallback": true
+          }
+        ],
+        "sales": {
+          "public": {
+            "startDateTime": "2025-01-22T00:35:00Z",
+            "startTBD": false,
+            "startTBA": false,
+            "endDateTime": "2025-04-13T00:00:00Z"
+          }
+        },
+        "dates": {
+          "access": {
+            "startDateTime": "2025-04-13T00:00:00Z",
+            "startApproximate": false,
+            "endDateTime": "2025-04-13T04:00:00Z",
+            "endApproximate": false
+          },
+          "start": {
+            "localDate": "2025-04-12",
+            "localTime": "19:00:00",
+            "dateTime": "2025-04-13T00:00:00Z",
+            "dateTBD": false,
+            "dateTBA": false,
+            "timeTBA": false,
+            "noSpecificTime": false
+          },
+          "end": {
+            "localDate": "2025-04-12",
+            "localTime": "23:00:00",
+            "dateTime": "2025-04-13T04:00:00Z",
+            "approximate": false,
+            "noSpecificTime": false
+          },
+          "timezone": "America/Chicago",
+          "status": {
+            "code": "onsale"
+          },
+          "spanMultipleDays": false
+        },
+        "classifications": [
+          {
+            "primary": true,
+            "segment": {
+              "id": "KZFzniwnSyZfZ7v7nJ",
+              "name": "Music"
+            },
+            "genre": {
+              "id": "KnvZfZ7vAvv",
+              "name": "Alternative"
+            },
+            "subGenre": {
+              "id": "KZazBEonSMnZfZ7vAvJ",
+              "name": "Alternative"
+            },
+            "type": {
+              "id": "KZAyXgnZfZ7v7nI",
+              "name": "Undefined"
+            },
+            "subType": {
+              "id": "KZFzBErXgnZfZ7v7lJ",
+              "name": "Undefined"
+            },
+            "family": false
+          }
+        ],
+        "promoter": {
+          "id": "5783",
+          "name": "NICE ENOUGH ENT",
+          "description": "NICE ENOUGH ENT / REG / SIOUX FALLS"
+        },
+        "promoters": [
+          {
+            "id": "5783",
+            "name": "NICE ENOUGH ENT",
+            "description": "NICE ENOUGH ENT / REG / SIOUX FALLS"
+          }
+        ],
+        "info": "Rammstein Tribute",
+        "pleaseNote": "This event is 21 and over. Any ticket holder unable to present valid identification indicating that they are at least 21 years of age will not be admitted to this event, and will not be eligible for a refund.",
+        "priceRanges": [
+          {
+            "type": "standard",
+            "currency": "USD",
+            "min": 15.0,
+            "max": 15.0
+          }
+        ],
+        "_links": {
+          "self": {
+            "href": "/discovery/v2/events/rZ7HnEZ1AfFovN?locale=en-us"
+          },
+          "venues": [
+            {
+              "href": "/discovery/v2/venues/rZ7HnEZ1734Og?locale=en-us"
+            }
+          ]
+        },
+        "_embedded": {
+          "venues": [
+            {
+              "name": "The Marquee",
+              "type": "venue",
+              "id": "rZ7HnEZ1734Og",
+              "test": false,
+              "url": "https://www.ticketweb.com/venue/the-marquee-sioux-city-ia/495835",
+              "locale": "en-us",
+              "postalCode": "51101",
+              "timezone": "America/Chicago",
+              "city": {
+                "name": "Sioux City"
+              },
+              "state": {
+                "name": "Iowa",
+                "stateCode": "IA"
+              },
+              "country": {
+                "name": "United States Of America",
+                "countryCode": "US"
+              },
+              "address": {
+                "line1": "1225 4th Street"
+              },
+              "location": {
+                "longitude": "-96.3939498",
+                "latitude": "42.4945256"
+              },
+              "upcomingEvents": {
+                "ticketweb": 5,
+                "_total": 5,
+                "_filtered": 0
+              },
+              "_links": {
+                "self": {
+                  "href": "/discovery/v2/venues/rZ7HnEZ1734Og?locale=en-us"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "_links": {
+    "first": {
+      "href": "/discovery/v2/events?keyword=Rammstein&page=0&size=1"
+    },
+    "self": {
+      "href": "/discovery/v2/events?size=1&keyword=Rammstein"
+    },
+    "next": {
+      "href": "/discovery/v2/events?keyword=Rammstein&page=1&size=1"
+    },
+    "last": {
+      "href": "/discovery/v2/events?keyword=Rammstein&page=3&size=1"
+    }
+  },
+  "page": {
+    "size": 1,
+    "totalElements": 4,
+    "totalPages": 4,
+    "number": 0
+  }
+}

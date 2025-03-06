@@ -8,6 +8,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class TestUtils {
@@ -36,6 +38,14 @@ public class TestUtils {
             return objectMapper.readValue(inputStream, new TypeReference<List<T>>() {});
         } catch (IOException e) {
             throw new RuntimeException("Failed to parse JSON file: " + path, e);
+        }
+    }
+
+    public static String readFileAsString(String path) {
+        try {
+            return  Files.readString(Paths.get(path));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

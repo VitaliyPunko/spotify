@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
 import vpunko.spotify.core.dto.SpotifyUserTopAnswerDto;
+import vpunko.spotify.core.exception.SpotifyRestClientException;
+
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -52,7 +55,7 @@ class SpotifyRestClientTest {
 
 
     @Test
-    void getUserTopTracksWithRetry() {
+    void getUserTopTracksWithErrorCode() {
        mockWebServer.enqueue(new MockResponse().setResponseCode(500));
 
         // ✅ Call the method
@@ -61,6 +64,39 @@ class SpotifyRestClientTest {
         // ✅ Assertions
         assertThat(mockWebServer.getRequestCount()).isEqualTo(1);
     }
+
+    @Test
+    void getUserTopArtistsShouldReturnValidResponse() {
+        // ✅ Mock Spotify API response
+        String fakeJsonResponse = fakeJsonResponse();
+
+        mockWebServer.enqueue(new MockResponse()
+                .setBody(fakeJsonResponse)
+                .setHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
+                .setResponseCode(200));
+
+        // ✅ Call the method
+        SpotifyUserTopAnswerDto response = spotifyRestClient.getUserTopArtists(Optional.empty());
+
+        // ✅ Assertions
+        assertThat(response).isNotNull();
+        assertThat(response.getItems()).hasSize(2);
+        assertThat(response.getItems().get(0).getName()).isEqualTo("Song A");
+    }
+
+
+    @Test
+    void getUserTopArtistsWithErrorCode() {
+        mockWebServer.enqueue(new MockResponse().setResponseCode(404));
+
+        // ✅ Call the method
+        assertThrows(SpotifyRestClientException.class, () -> spotifyRestClient.getUserTopArtists(Optional.empty()));
+
+        // ✅ Assertions
+        assertThat(mockWebServer.getRequestCount()).isEqualTo(1);
+    }
+
+
 
     private String fakeJsonResponse() {
         return """
