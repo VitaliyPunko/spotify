@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import vpunko.spotify.core.dto.MusicEventDto;
 import vpunko.spotify.core.dto.TicketMasterEventResponse;
 import vpunko.spotify.core.service.MusicEventServiceImpl;
-import vpunko.spotify.security.TestSecurityConfig;
+import vpunko.spotify.security.TestConfig;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AppController.class)
-@Import(TestSecurityConfig.class)
+@Import(TestConfig.class)
 class AppControllerTest {
 
     @Autowired

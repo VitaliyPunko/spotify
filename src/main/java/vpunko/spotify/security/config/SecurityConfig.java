@@ -13,7 +13,6 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-//https://spring.io/guides/gs/securing-web
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {

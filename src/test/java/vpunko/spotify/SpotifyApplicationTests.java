@@ -2,8 +2,12 @@ package vpunko.spotify;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import vpunko.spotify.security.TestConfig;
 
-@SpringBootTest
+
+@SpringBootTest()
+@Import(TestConfig.class)
 class SpotifyApplicationTests {
 
     @Test

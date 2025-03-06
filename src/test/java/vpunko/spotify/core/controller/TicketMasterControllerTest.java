@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import vpunko.spotify.core.client.TicketMasterRestClient;
 import vpunko.spotify.core.dto.TicketMasterEventResponse;
-import vpunko.spotify.security.TestSecurityConfig;
+import vpunko.spotify.security.TestConfig;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(TicketMasterController.class)
-@Import(TestSecurityConfig.class)
+@Import(TestConfig.class)
 class TicketMasterControllerTest {
 
     @Autowired

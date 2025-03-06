@@ -1,14 +1,33 @@
 spring:
-  security:
-    oauth2:
-      client:
-        registration: { } # Disable OAuth2 clients
-        provider: { }
   datasource:
     url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
     username: sa
     password:
+  security:
+    oauth2:
+      client:
+        registration: {}
+        provider: {}
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
+
   sql:
     init:
       platform: h2
+  main:
+    allow-bean-definition-overriding: true
+
+application:
+  urls:
+    spotify: https://api.spotify.com
+    ticketmaster: https://app.ticketmaster.com
+  credentials:
+    ticketmaster:
+      apikey: apikey
+
+telegram:
+  bot_username: bot_username
+  bot_token: bot_token
+  ticketmaster_page_size: 1
