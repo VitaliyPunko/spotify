@@ -1,6 +1,6 @@
 spring:
   application:
-    name: spotify
+    name: music-event-core
   security:
     oauth2:
       client:

@@ -37,16 +37,21 @@ jobs:
     - name: Build with Gradle Wrapper
       run: ./gradlew build
 
-    # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
-    # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
-    #
-    # - name: Setup Gradle
-    #   uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
-    #   with:
-    #     gradle-version: '8.9'
-    #
-    # - name: Build with Gradle 8.9
-    #   run: gradle build
+    - name: Extract version from Gradle
+      run: echo "APP_VERSION=$(./gradlew properties | grep 'version:' | awk '{print $2}')" >> $GITHUB_ENV
+
+    - name: Build Docker image
+      run: |
+        docker build \ 
+        -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }} \
+        -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest .
+
+
+    - name: Push Docker image to Docker Hub
+      run: |
+        docker push ${{ secrets.DOCKER_USERNAME }}/spring-app:${{ env.APP_VERSION }}
+        docker push ${{ secrets.DOCKER_USERNAME }}/spring-app:latest
+  
 
   dependency-submission:
 
