@@ -40,8 +40,7 @@ jobs:
     - name: List files in build/libs
       run: ls -l build/libs
 
-    - name:
-        Debug: Check if JAR was generated
+    - name: Check if JAR was generated
       run: find build/libs -name "*.jar"
 
 
