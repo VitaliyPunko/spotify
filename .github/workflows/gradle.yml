@@ -40,17 +40,18 @@ jobs:
     - name: Extract version from Gradle
       run: echo "APP_VERSION=$(./gradlew properties | grep 'version:' | awk '{print $2}')" >> $GITHUB_ENV
 
-    - name: Build Docker image
-      run: |
-        docker build \ 
-        -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }} \
-        -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest .
-
-
-    - name: Push Docker image to Docker Hub
-      run: |
-        docker push ${{ secrets.DOCKER_USERNAME }}/spring-app:${{ env.APP_VERSION }}
-        docker push ${{ secrets.DOCKER_USERNAME }}/spring-app:latest
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    - name: Build and push
+      uses: docker/build-push-action@v6
+      with:
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}
   
 
   dependency-submission:
