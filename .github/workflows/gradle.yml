@@ -58,7 +58,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build \ 
+        docker build \
         -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }} \
         -t ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest .
   
