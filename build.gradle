@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'vpunko'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2'
 
 java {
     toolchain {
@@ -26,7 +26,7 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+   // implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'org.springframework.security:spring-security-oauth2-resource-server'
 
@@ -36,9 +36,6 @@ dependencies {
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.3'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.3'
-
-
-    implementation group: 'org.jobrunr', name: 'jobrunr-spring-boot-3-starter', version: '7.0.0'
 
 
     compileOnly 'org.projectlombok:lombok'
