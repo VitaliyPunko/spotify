@@ -2,7 +2,7 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY build/libs/music-event-core.jar.jar app.jar
+COPY build/libs/music-event-core.jar app.jar
 
 EXPOSE 8080
 
