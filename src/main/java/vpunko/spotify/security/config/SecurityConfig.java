@@ -27,12 +27,6 @@ public class SecurityConfig {
                                         "/favicon.ico", "/error", "/logout", "/login").permitAll()
                                 .anyRequest().authenticated()
                 )
-                .formLogin((formLogin) ->
-                        formLogin
-                                .successForwardUrl("/hello")
-                                .failureForwardUrl("/error")
-
-                )
                 .oauth2Login(withDefaults());
 
         http.oauth2ResourceServer(oauth2rs -> oauth2rs
