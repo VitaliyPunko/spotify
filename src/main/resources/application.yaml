@@ -20,6 +20,12 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: http://localhost:9000
+  kafka:
+    in:
+      telegram-bot-user-received-event:
+        topic: telegram-bot-user-received-event
+        consumer:
+          bootstrap-servers: localhost:29092
 
 logging:
   level:
