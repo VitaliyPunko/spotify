@@ -1,0 +1,80 @@
+apiVersion: kafka.strimzi.io/v1beta2  # see https://strimzi.io/
+kind: Kafka # defines a Kafka cluster (specific kind in strimzi)
+metadata:
+  name: kafka
+  namespace: kafka-namespace
+  annotations:
+    strimzi.io/node-pools: enabled
+    strimzi.io/kraft: enabled
+spec:
+  kafka:
+    version: 4.0.0
+    metadataVersion: 4.0-IV0
+    listeners:
+      - name: plain
+        port: 9092
+        type: internal
+        tls: false
+      - name: tls
+        port: 9093
+        type: internal
+        tls: true
+    config:
+      offsets.topic.replication.factor: 3
+      transaction.state.log.replication.factor: 3
+      transaction.state.log.min.isr: 2
+      default.replication.factor: 3
+      min.insync.replicas: 2
+      log.retention.hours: 168
+    # Resources applied to all nodes in the pool
+    resources:
+      requests:
+        memory: 500Mi
+        cpu: 300m
+      limits:
+        memory: 700Mi
+        cpu: 500m
+    jvmOptions:
+      -Xms: 256m
+      -Xmx: 384m
+  entityOperator:
+    topicOperator:
+      resources:
+        requests:
+          memory: 128Mi
+          cpu: 100m
+        limits:
+          memory: 256Mi
+          cpu: 200m
+    userOperator:
+      resources:
+        requests:
+          memory: 128Mi
+          cpu: 100m
+        limits:
+          memory: 256Mi
+          cpu: 200m
+
+---
+
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaNodePool # defines a group of Kafka nodes (specific kind in strimzi)
+metadata:
+  name: dual-role
+  namespace: kafka-namespace
+  labels:
+    strimzi.io/cluster: kafka # Links to the Kafka resource above
+spec:
+  replicas: 3
+  roles:
+    - controller
+    - broker
+  storage:
+    type: jbod # "Just a Bunch Of Disks" - can have multiple volumes
+    volumes:
+      - id: 0
+        type: persistent-claim
+        size: 10Gi
+        deleteClaim: false
+        class: linode-block-storage-retain
+        kraftMetadata: shared
