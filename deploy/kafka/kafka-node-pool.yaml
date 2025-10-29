@@ -1,5 +1,5 @@
 apiVersion: kafka.strimzi.io/v1beta2  # see https://strimzi.io/
-kind: Kafka
+kind: Kafka # defines a Kafka cluster (specific kind in strimzi)
 metadata:
   name: kafka
   namespace: kafka-namespace
@@ -58,19 +58,19 @@ spec:
 ---
 
 apiVersion: kafka.strimzi.io/v1beta2
-kind: KafkaNodePool
+kind: KafkaNodePool # defines a group of Kafka nodes (specific kind in strimzi)
 metadata:
   name: dual-role
   namespace: kafka-namespace
   labels:
-    strimzi.io/cluster: kafka
+    strimzi.io/cluster: kafka # Links to the Kafka resource above
 spec:
   replicas: 3
   roles:
     - controller
     - broker
   storage:
-    type: jbod
+    type: jbod # "Just a Bunch Of Disks" - can have multiple volumes
     volumes:
       - id: 0
         type: persistent-claim
