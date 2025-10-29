@@ -27,6 +27,17 @@ spring:
         consumer:
           bootstrap-servers: localhost:29092
 
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+
 logging:
   level:
     org.springframework.security: TRACE

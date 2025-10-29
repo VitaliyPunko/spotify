@@ -25,7 +25,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                                 .requestMatchers(
                                         "/favicon.ico", "/error", "/logout", "/login").permitAll()
-                                .anyRequest().authenticated()
+                  //              .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .oauth2Login(withDefaults());
 
