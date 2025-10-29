@@ -38,7 +38,20 @@ jobs:
       run: ./gradlew build
 
     - name: Extract version from Gradle
-      run: echo "APP_VERSION=$(./gradlew properties | grep 'version:' | awk '{print $2}')" >> $GITHUB_ENV
+      run: |
+        echo "APP_VERSION=$(./gradlew properties | grep 'version:' | awk '{print $2}')" >> $GITHUB_ENV
+        echo "GIT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+    - name: Check if version tag exists on Docker Hub
+      id: check_version
+      run: |
+        if docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }} 2>/dev/null; then
+          echo "exists=true" >> $GITHUB_OUTPUT
+          echo "Version ${{ env.APP_VERSION }} already exists on Docker Hub"
+        else
+          echo "exists=false" >> $GITHUB_OUTPUT
+          echo "Version ${{ env.APP_VERSION }} is new"
+        fi        
 
     - name: Login to Docker Hub
       uses: docker/login-action@v3
@@ -48,15 +61,33 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build \
-        -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }} \
-        -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest .
+        if [ "${{ steps.check_version.outputs.exists }}" == "true" ]; then
+          # Only build SHA tag if version exists
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}-${{ env.GIT_SHA }} .
+        else
+          # Build all tags if version is new
+          docker build \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}-${{ env.GIT_SHA }} \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }} \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest .
+        fi
 
     - name: Push Docker image to Docker Hub
       run: |
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}-${{ env.GIT_SHA }}
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
-    
+
+    - name: Push Docker image to Docker Hub
+      run: |
+        # Always push SHA tag
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}-${{ env.GIT_SHA }}
+        
+        # Only push version and latest tags if version is new
+        if [ "${{ steps.check_version.outputs.exists }}" == "false" ]; then
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
+        fi
 
   dependency-submission:
 
