@@ -73,13 +73,7 @@ jobs:
         fi
 
     - name: Push Docker image to Docker Hub
-      if: github.event_name == 'push'  # Only push on merge to main
-      run: |
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}-${{ env.GIT_SHA }}
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
-
-    - name: Push Docker image to Docker Hub
+      if: github.event_name == 'push'
       run: |
         # Always push SHA tag
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}-${{ env.GIT_SHA }}
