@@ -8,9 +8,9 @@ spec:
   ingressClassName: nginx
   rules:
     - host: 66-228-63-42.ip.linodeusercontent.com
-    - http:
+      http:
         paths:
-          - path: /api
+          - path: /
             pathType: Prefix
             backend:
               service:
