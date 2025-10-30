@@ -23,7 +23,7 @@ spring:
   kafka:
     in:
       telegram-bot-user-received-event:
-        topic: telegram-bot-user-received-event
+        topic: music-event-core-topic
         consumer:
           bootstrap-servers: kafka-kafka-bootstrap.kafka-namespace:29092
 
