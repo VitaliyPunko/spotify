@@ -25,7 +25,7 @@ spring:
       telegram-bot-user-received-event:
         topic: telegram-bot-user-received-event
         consumer:
-          bootstrap-servers: localhost:29092
+          bootstrap-servers: kafka-kafka-bootstrap.kafka-namespace:29092
 
 management:
   endpoint:

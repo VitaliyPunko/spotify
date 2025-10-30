@@ -12,7 +12,7 @@ spec:
     metadataVersion: 4.0-IV0
     listeners:
       - name: plain
-        port: 9092
+        port: 29092
         type: internal
         tls: false    # no Authentication
     # Default Kafka configuration for all new topics
