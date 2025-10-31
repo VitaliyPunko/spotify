@@ -2,9 +2,12 @@
 
 [![Java CI with Gradle](https://github.com/VitaliyPunko/spotify/actions/workflows/gradle.yml/badge.svg?branch=main)](https://github.com/VitaliyPunko/spotify/actions/workflows/gradle.yml)
 
+Kafka UI : http://66-228-63-42.ip.linodeusercontent.com/kafka-ui/ui/clusters/kafka-cluster/all-topics?page=1 
+
 1. Use GitHub action for pushing Docker image to Docker Hub
 2. Divide build and push to docker hub GitHub actions to different jobs
 3. Set authentication for kafka topic
+4. Use lens for kuber
 
 App uses Strimzi for Kafka https://strimzi.io/docs/operators/latest/deploying :
 
