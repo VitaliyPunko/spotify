@@ -47,42 +47,70 @@ jobs:
       run: |
         if docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }} 2>/dev/null; then
           echo "exists=true" >> $GITHUB_OUTPUT
-          echo "Version ${{ env.APP_VERSION }} already exists on Docker Hub"
+          echo "⚠️  Version ${{ env.APP_VERSION }} already exists on Docker Hub"
+          echo "📦 Will only create SHA-specific tag: ${{ env.APP_VERSION }}-${{ env.GIT_SHA }}"
         else
           echo "exists=false" >> $GITHUB_OUTPUT
-          echo "Version ${{ env.APP_VERSION }} is new"
-        fi        
+          echo "✨ Version ${{ env.APP_VERSION }} is new!"
+          echo "📦 Will create tags: ${{ env.APP_VERSION }}-${{ env.GIT_SHA }}, ${{ env.APP_VERSION }}, latest"
+        fi
+    
 
     - name: Login to Docker Hub
+      if: github.event_name == 'push'  # Only login on push, not PR
       uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Build Docker image
+
+    - name: Build and Push Docker image
+      if: github.event_name == 'push'  # Only build/push on push to main
       run: |
         if [ "${{ steps.check_version.outputs.exists }}" == "true" ]; then
-          # Only build SHA tag if version exists
+          echo "🔨 Building image with SHA tag only..."
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}-${{ env.GIT_SHA }} .
+
+          echo "⬆️  Pushing SHA tag: ${{ env.APP_VERSION }}-${{ env.GIT_SHA }}"
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}-${{ env.GIT_SHA }}
         else
-          # Build all tags if version is new
+          echo "🔨 Building image with all tags (new version)..."
           docker build \
             -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}-${{ env.GIT_SHA }} \
             -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }} \
             -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest .
-        fi
 
-    - name: Push Docker image to Docker Hub
-      if: github.event_name == 'push'
-      run: |
-        # Always push SHA tag
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}-${{ env.GIT_SHA }}
-        
-        # Only push version and latest tags if version is new
-        if [ "${{ steps.check_version.outputs.exists }}" == "false" ]; then
+          echo "⬆️  Pushing all tags..."
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}-${{ env.GIT_SHA }}
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
         fi
+  
+
+  #    - name: Build Docker image
+#      run: |
+#        if [ "${{ steps.check_version.outputs.exists }}" == "true" ]; then
+#          # Only build SHA tag if version exists
+#          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}-${{ env.GIT_SHA }} .
+#        else
+#          # Build all tags if version is new
+#          docker build \
+#            -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}-${{ env.GIT_SHA }} \
+#            -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }} \
+#            -t ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest .
+#        fi
+#
+#    - name: Push Docker image to Docker Hub
+#      if: github.event_name == 'push'
+#      run: |
+#        # Always push SHA tag
+#        docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}-${{ env.GIT_SHA }}
+#
+#        # Only push version and latest tags if version is new
+#        if [ "${{ steps.check_version.outputs.exists }}" == "false" ]; then
+#          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:${{ env.APP_VERSION }}
+#          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKER_IMAGE_NAME }}:latest
+#        fi
 
   dependency-submission:
 
