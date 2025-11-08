@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import vpunko.spotify.core.dto.MusicEventDto;
-import vpunko.spotify.core.dto.TicketMasterEventResponse;
 import vpunko.spotify.core.service.MusicEventServiceImpl;
 
 import java.util.List;
@@ -17,10 +16,9 @@ public class AppController {
     private final MusicEventServiceImpl musicEventService;
 
 
-    @GetMapping("/get-user-pref")
-    public TicketMasterEventResponse getEventByUserPreference() {
-        var musicEventByArtist = musicEventService.getMusicEventByUserTopArtist();
-        return musicEventByArtist;
+    @GetMapping("/hello")
+    public String hello() {
+     return "Hello";
     }
 
     @GetMapping("/getEventByArtist")
