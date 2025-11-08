@@ -1,0 +1,22 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${music-event-auth-url}
+  kafka:
+    in:
+      telegram-bot-user-received-event:
+        topic: music-event-core-topic
+        consumer:
+          bootstrap-servers: kafka-kafka-bootstrap.kafka-namespace.svc.cluster.local:29092
+
+application:
+  credentials:
+    ticketmaster:
+      apikey: ${ticketmaster-apikey}
+
+telegram:
+  bot_username: ${telegram-bot-username}
+  bot_token: ${telegram-bot-token}
+  ticketmaster_page_size: ${ticketmaster-page-size}

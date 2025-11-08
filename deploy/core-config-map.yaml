@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: music-event-core-config-map
+  namespace: default
+data:
+  music-event-auth-url: "http://localhost:9000"
+  telegram-bot-username: "MusicEvenHelperBot"
+  ticketmaster-page-size: "3"
