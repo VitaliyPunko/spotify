@@ -1,31 +1,6 @@
 spring:
   application:
     name: music-event-core
-  security:
-    oauth2:
-      client:
-        registration:
-          spotify:
-            client-id: ea61a2d5de634fcd89a2e3e615321a75 #use vault
-            client-secret: 0cfec47751044f1b8af74a3a15698a8e #use vault
-            authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/spotify
-            scope: user-read-private, user-read-email, user-top-read
-        provider:
-          spotify:
-            authorization-uri: https://accounts.spotify.com/authorize
-            token-uri: https://accounts.spotify.com/api/token
-            user-info-uri: https://api.spotify.com/v1/me   #Spotify has custom UserInfo endpoint
-            user-name-attribute: id
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:9000
-  kafka:
-    in:
-      telegram-bot-user-received-event:
-        topic: music-event-core-topic
-        consumer:
-          bootstrap-servers: kafka-kafka-bootstrap.kafka-namespace.svc.cluster.local:29092
 
 management:
   endpoint:
@@ -44,16 +19,10 @@ logging:
 
 application:
   urls:
-    spotify: https://api.spotify.com/v1
     ticketmaster: https://app.ticketmaster.com/discovery/v2
   credentials:
     ticketmaster:
       apikey: GdnEbnSIzFA31WRk3pvBSC2DhGMCHgHS    #use vault
-
-telegram:
-  bot_username: MusicEvenHelperBot    #use vault
-  bot_token: 7941376949:AAHeus8Bg2E0aydGgWJEvtdOE1S3col-H1M   #use vault
-  ticketmaster_page_size: 3
 
 server:
   port: 8080

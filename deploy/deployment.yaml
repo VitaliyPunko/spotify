@@ -16,12 +16,43 @@ spec:
         - name: dockerhub-secret-music-core
       containers:
         - name: music-event-core-app
-          image: vitaliypunko/music-event-core:latest
+          image: vitaliypunko/music-event-core:0.0.3-c4da7e6
           ports:
             - containerPort: 8080
-#          env:
-#            - name: SPRING_PROFILES_ACTIVE
-#              value: "prod"
+          env:
+            # app env
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
+
+            # configMap
+            - name: TELEGRAM_BOT_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: music-event-core-config-map
+                  key: telegram-bot-username
+            - name: TICKETMASTER_PAGE_SIZE
+              valueFrom:
+                configMapKeyRef:
+                  name: music-event-core-config-map
+                  key: ticketmaster-page-size
+            - name: MUSIC_EVENT_AUTH_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: music-event-core-config-map
+                  key: music-event-auth-url
+
+            # secrets
+            - name: TELEGRAM_BOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: music-event-core-secrets
+                  key: telegram-bot-token
+            - name: TICKETMASTER_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: music-event-core-secrets
+                  key: ticketmaster-api-key
+
           resources:
             limits:
               cpu: "0.3"

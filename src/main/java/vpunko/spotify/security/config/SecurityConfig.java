@@ -5,13 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
@@ -23,12 +19,10 @@ public class SecurityConfig {
                 .csrf((csrf) -> csrf.disable())
                 .cors((cors) -> cors.disable())
                 .authorizeHttpRequests((requests) -> requests
-                                .requestMatchers(
-                                        "/favicon.ico", "/error", "/logout", "/login").permitAll()
-                  //              .anyRequest().authenticated()
+                        .requestMatchers("/actuator/**", "/error").permitAll()
+             //           .anyRequest().authenticated()
                         .anyRequest().permitAll()
-                )
-                .oauth2Login(withDefaults());
+                );
 
         http.oauth2ResourceServer(oauth2rs -> oauth2rs
                 .jwt((jwt) ->
@@ -47,12 +41,6 @@ public class SecurityConfig {
         JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
         jwtConverter.setJwtGrantedAuthoritiesConverter(converter);
         return jwtConverter;
-    }
-
-
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
 }

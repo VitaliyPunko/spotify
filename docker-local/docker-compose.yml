@@ -1,4 +1,4 @@
-name: "spotify_db"
+name: "music-event-core"
 
 services:
   postgres:

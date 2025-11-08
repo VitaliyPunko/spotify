@@ -10,7 +10,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import vpunko.spotify.core.dto.MusicEventDto;
-import vpunko.spotify.core.dto.TicketMasterEventResponse;
 import vpunko.spotify.core.service.MusicEventServiceImpl;
 import vpunko.spotify.security.TestConfig;
 
@@ -31,25 +30,7 @@ class AppControllerTest {
     @MockitoBean
     private MusicEventServiceImpl musicEventService;
 
-    private TicketMasterEventResponse masterEventResponse = new TicketMasterEventResponse();
     private List<MusicEventDto> musicEventsResponse = List.of();
-
-    @Test
-    void getEventByUserPreferenceShouldReturnMockResponse() throws Exception {
-        when(musicEventService.getMusicEventByUserTopArtist()).thenReturn(masterEventResponse);
-
-        MvcResult result = mockMvc.perform(
-                get("/get-user-pref")
-                .header("Authorization", "Bearer fake-jwt-token"))
-                .andExpect(status().isOk())
-                .andReturn();
-
-        String jsonResponse = result.getResponse().getContentAsString();
-        TicketMasterEventResponse actualResponse = new ObjectMapper().readValue(jsonResponse, TicketMasterEventResponse.class);
-
-        assertNotNull(actualResponse);
-        verify(musicEventService, times(1)).getMusicEventByUserTopArtist();
-    }
 
     @Test
     void getEventByArtistShouldReturnMockResponse() throws Exception {
@@ -67,17 +48,6 @@ class AppControllerTest {
 
         assertNotNull(actualResponse);
         verify(musicEventService, times(1)).getMusicEventByArtist(any());
-    }
-
-    @Test
-    void getEventByUserPreferenceShouldReturn500OnServiceFailure() throws Exception {
-        when(musicEventService.getMusicEventByUserTopArtist())
-                .thenThrow(new RuntimeException("Service failed"));
-
-        ResultActions result = mockMvc.perform(get("/get-user-pref"))
-                .andExpect(status().isInternalServerError());
-
-        assertNotNull(result);
     }
 
     @Test
