@@ -1,4 +1,7 @@
 # spotify
+## Url for test: 
+- http://66-228-63-42.ip.linodeusercontent.com/music-event-core/hello
+- http://66-228-63-42.ip.linodeusercontent.com/kafka-ui
 
 [![Java CI with Gradle](https://github.com/VitaliyPunko/spotify/actions/workflows/gradle.yml/badge.svg?branch=main)](https://github.com/VitaliyPunko/spotify/actions/workflows/gradle.yml)
 

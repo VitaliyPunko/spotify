@@ -24,11 +24,11 @@ spec:
     # Resources applied to all nodes in the pool
     resources:
       requests:
-        memory: 1000Mi
-        cpu: 500m
+        memory: 800Mi
+        cpu: 400m
       limits:
-        memory: 1500Mi
-        cpu: 700m
+        memory: 1200Mi
+        cpu: 600m
     jvmOptions:
       -Xms: 512m
       -Xmx: 768m
